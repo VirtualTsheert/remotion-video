@@ -110,7 +110,8 @@ Avoid computed names, hardcode them.
     Launch day
   </Interactive.Div>
   <Img name="Avatar" src="https://remotion.media/image.jpeg" />
-  <Video name="Background" src="https://remotion.media/video.mp4" />
+  <Video name="Background" src="
+  " />
   <Interactive.Div name="Title">
     Launch day
   </Interactive.Div>
