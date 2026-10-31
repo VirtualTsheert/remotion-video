@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, getInputProps, getRemotionEnvironment, getStaticFiles, staticFile } from "remotion";
-import { Video } from "@remotion/media";
+import { Audio, Video } from "@remotion/media";
 import { TransitionSeries } from "@remotion/transitions";
 import { resolveTransition } from "../engine/transitions";
 import { COLORS } from "../theme/tokens";
@@ -26,7 +26,7 @@ export const ProductionVideo: React.FC<{ productionId: string }> = ({
   const production = PRODUCTIONS.find((p) => p.id === productionId);
   if (!production) throw new Error(`Produksi "${productionId}" tidak terdaftar`);
   return (
-    <AbsoluteFill style={{ backgroundColor: COLORS.ink }}>
+    <AbsoluteFill style={{ backgroundColor: production.background ?? COLORS.ink }}>
       <TransitionSeries>
         {production.shots.flatMap((shot, i) => {
           const items: React.ReactNode[] = [];
@@ -66,6 +66,10 @@ export const ProductionVideo: React.FC<{ productionId: string }> = ({
           return items;
         })}
       </TransitionSeries>
+      {production.overlay ? <production.overlay /> : null}
+      {production.soundtrack && getStaticFiles().some((f) => f.name === production.soundtrack) ? (
+        <Audio src={staticFile(production.soundtrack)} />
+      ) : null}
     </AbsoluteFill>
   );
 };

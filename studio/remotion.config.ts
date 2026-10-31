@@ -22,7 +22,9 @@ Config.setPixelFormat("yuv420p");
 // Ruang warna ditandai eksplisit (lihat scripts/plates.mjs).
 Config.setColorSpace("bt709");
 Config.setCrf(18);
-Config.setMuted(true);
+// Default tanpa audio; produksi bersuara (mis. Kucing) dirender dengan
+// REMOTION_WITH_AUDIO=1 agar track <Audio> ikut dimix ke MP4.
+Config.setMuted(process.env.REMOTION_WITH_AUDIO !== "1");
 
 // 2 vCPU / ~8 GB RAM: dua tab render paralel adalah batas aman.
 Config.setConcurrency(2);

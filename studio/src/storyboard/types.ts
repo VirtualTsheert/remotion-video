@@ -35,4 +35,10 @@ export type Production = {
   id: string;
   title: string;
   shots: Shot[];
+  // Lapisan di atas semua shot dengan waktu global (mis. HUD, teks kartu).
+  overlay?: React.FC;
+  // Soundtrack lengkap (path di public/), diputar dari frame 0.
+  soundtrack?: string;
+  // Warna latar di balik shot.
+  background?: string;
 };

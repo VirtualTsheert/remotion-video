@@ -45,7 +45,12 @@
     "qc": "node scripts/qc.mjs",
     "preview": "node scripts/preview-frames.mjs",
     "plates": "node scripts/plates.mjs",
-    "imagery": "node scripts/fetch-imagery.mjs"
+    "imagery": "node scripts/fetch-imagery.mjs",
+    "audio:lebah": "node scripts/synth-lebah-audio.mts",
+    "render:lebah": "node scripts/synth-lebah-audio.mts && remotion render Lebah out/Lebah-silent.mp4 && ffmpeg -y -loglevel error -i out/Lebah-silent.mp4 -i public/audio/lebah/soundtrack.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -shortest out/Lebah.mp4",
+    "audio:kucing": "node scripts/synth-kucing-audio.mts",
+    "render:kucing": "REMOTION_WITH_AUDIO=1 remotion render Kucing out/Kucing.mp4",
+    "render:kucing:draft": "REMOTION_WITH_AUDIO=1 remotion render Kucing out/Kucing-draft.mp4 --scale=0.5 --crf=28"
   },
   "allowScripts": {
     "esbuild": false
