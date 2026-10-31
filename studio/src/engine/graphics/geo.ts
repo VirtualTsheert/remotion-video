@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { cancelRender, continueRender, delayRender, staticFile } from "remotion";
 import { geoMercator } from "d3-geo";
 import type { FeatureCollection, MultiPolygon } from "geojson";
@@ -25,7 +25,22 @@ const [, mapBottom] = projection([MAP_BBOX[0], MAP_BBOX[1]]) as [number, number]
 export const MAP_HEIGHT = Math.ceil(mapBottom);
 
 export type LonLat = [number, number];
-export const geo = (p: LonLat): [number, number] => projection(p) as [number, number];
+export type Project = (p: LonLat) => [number, number];
+export const geo: Project = (p) => projection(p) as [number, number];
+
+// Proyeksi untuk citra satelit EPSG:4326 (bbox [barat, selatan, timur, utara])
+// ke piksel gambar berukuran `size`. Dipakai untuk menaruh pin/rute di atas citra.
+export const imageProjection =
+  (bbox: readonly [number, number, number, number], size: readonly [number, number]): Project =>
+  ([lon, lat]) => [
+    ((lon - bbox[0]) / (bbox[2] - bbox[0])) * size[0],
+    ((bbox[3] - lat) / (bbox[3] - bbox[1])) * size[1],
+  ];
+
+// Proyeksi aktif untuk MapPin/GeoRoute/MapLabel. Default: dunia peta vektor (geo).
+// <ImageWorld> menggantinya dengan proyeksi citra.
+export const ProjectionContext = createContext<Project>(geo);
+export const useProjection = () => useContext(ProjectionContext);
 
 export type Region = FeatureCollection<MultiPolygon, { iso: string; name: string }>;
 export type Place = { name: string; lon: number; lat: number; rank: number };

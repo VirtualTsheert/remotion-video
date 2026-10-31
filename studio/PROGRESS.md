@@ -60,6 +60,31 @@ Belum dikerjakan / batasan yang diketahui:
 - Peta adalah shot DOM terberat (±2 dtk/frame di preview) karena detail 1:10m tetap digambar
   saat tampilan lebar; versi detail rendah untuk tampilan lebar bisa ditambahkan bila perlu.
 
-## Tahap 4 — Pilot Video ⏳
+## Tahap 4 — Pilot Video 🔄
 
-Belum dimulai. Butuh keputusan topik sejarah dan sumber materi yang dapat dipertanggungjawabkan.
+Cakupan diperluas: sistem dipakai untuk dokumenter investigatif sejarah, politik, teknologi,
+bioteknologi, dan pertanian — tidak terkunci pada satu tema.
+
+- ✅ Topic Radar (2026-10-31): 5 topik dari 5 kategori, dinilai dari sumber, kedalaman,
+  relevansi, dan potensi visual — [research/topic-radar.md](research/topic-radar.md).
+- ✅ Topik dipilih: **#1 Food estate** → produksi `FoodEstate` — *Lahan yang Sama* (±2:25, 16 shot).
+- ✅ Riset: [dosir fakta](research/food-estate/dossier.md) — setiap kalimat naskah dirujuk ke fakta
+  bertingkat kepastian (A primer/akademik, B media/LSM dicek silang, C analisis tim). Sisi
+  pemerintah ikut dikutip (Presiden 2020, Mentan 2024, BPK).
+- ✅ Data visual nyata & dapat direproduksi:
+  - Citra NASA GIBS via manifest ([imagery.json](research/food-estate/imagery.json) →
+    `npm run imagery`): Landsat 1989 vs 1999 (kanal PLG), MODIS asap 2015, HLS Sentinel-2
+    Tewai Baru 2020–2023 & Kapuas 2024.
+  - Analisis perubahan citra Tewai Baru ([scripts/analysis/tewai_change.py](scripts/analysis/tewai_change.py)):
+    ±577 ha bukaan baru (Jun 2020 → Mei 2022), selaras dengan ±700 ha Pantau Gambut.
+  - Lokasi desa & sungai dari OpenStreetMap; kota dari Natural Earth.
+- ✅ [Naskah VO](research/food-estate/script.md) ±290 kata + storyboard di
+  `src/productions/food-estate/storyboard.ts` (VO, tujuan, kamera, sumber per shot).
+- ✅ Tambahan engine (generik): proyeksi pin/rute di atas citra (`ImageWorld`), `GeoImage`
+  (peta → citra mulus), `BeforeAfter`, `SatelliteViewer`, `Counter` desimal, panel teks.
+- ✅ Setiap shot dipreview & dikoreksi satu per satu. Koreksi penting:
+  - jejak kanal: segmen diagonal yang ternyata jalur bukaan lahan dihapus (hanya ruas terverifikasi);
+  - koordinat "113°60′" (format salah) → 113°59′;
+  - overlay analisis 2020→2022 dipindah ke citra 2022 (bukan 2023);
+  - teks di atas asap putih tidak terbaca → panel gelap; thumbnail hook kosong → teks sejak frame 0.
+- 🔄 Render penuh & QC.

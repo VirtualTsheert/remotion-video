@@ -1,0 +1,14 @@
+{
+  "area_ha": 577,
+  "center_px": [
+    494,
+    522
+  ],
+  "center_lonlat": [
+    113.9942,
+    -1.4581
+  ],
+  "before": "2020-06-29",
+  "after": "2022-05-13",
+  "method": "vegetasi\u2192tanah terbuka, komponen terbesar, HLS Sentinel-2 (NASA GIBS); analisis tim"
+}

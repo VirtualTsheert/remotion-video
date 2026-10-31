@@ -1,0 +1,149 @@
+{
+  "credit": "Citra: NASA GIBS/EOSDIS",
+  "images": [
+    {
+      "id": "plg-1989",
+      "note": "Kawasan eks-PLG sebelum proyek (komposit Landsat tahunan)",
+      "layer": "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+      "time": "1989-12-01",
+      "bbox": [
+        114,
+        -3.25,
+        114.8,
+        -1.85
+      ],
+      "size": [
+        1800,
+        3150
+      ]
+    },
+    {
+      "id": "plg-1999",
+      "note": "Kawasan eks-PLG sesudah kanal dibangun (komposit Landsat tahunan)",
+      "layer": "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+      "time": "1999-12-01",
+      "bbox": [
+        114,
+        -3.25,
+        114.8,
+        -1.85
+      ],
+      "size": [
+        1800,
+        3150
+      ]
+    },
+    {
+      "id": "spi-1999",
+      "note": "Jalur Saluran Primer Induk, Kahayan–Kapuas–Barito",
+      "layer": "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+      "time": "1999-12-01",
+      "bbox": [
+        113.9,
+        -2.5,
+        115,
+        -1.96
+      ],
+      "size": [
+        3300,
+        1620
+      ]
+    },
+    {
+      "id": "smoke-2015",
+      "note": "Asap kebakaran di atas Kalimantan bagian selatan",
+      "layer": "MODIS_Terra_CorrectedReflectance_TrueColor",
+      "time": "2015-09-24",
+      "bbox": [
+        110.5,
+        -6,
+        116.5,
+        4.5
+      ],
+      "size": [
+        1400,
+        2450
+      ]
+    },
+    {
+      "id": "tewai-2020",
+      "note": "Dekat Desa Tewai Baru, Gunung Mas — sebelum bukaan",
+      "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+      "time": "2020-06-29",
+      "bbox": [
+        113.925,
+        -1.525,
+        114.065,
+        -1.385
+      ],
+      "size": [
+        1000,
+        1000
+      ]
+    },
+    {
+      "id": "tewai-2021",
+      "note": "Dekat Desa Tewai Baru — bukaan baru terlihat",
+      "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+      "time": "2021-05-23",
+      "bbox": [
+        113.925,
+        -1.525,
+        114.065,
+        -1.385
+      ],
+      "size": [
+        1000,
+        1000
+      ]
+    },
+    {
+      "id": "tewai-2022",
+      "note": "Dekat Desa Tewai Baru",
+      "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+      "time": "2022-05-13",
+      "bbox": [
+        113.925,
+        -1.525,
+        114.065,
+        -1.385
+      ],
+      "size": [
+        1000,
+        1000
+      ]
+    },
+    {
+      "id": "tewai-2023",
+      "note": "Dekat Desa Tewai Baru",
+      "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+      "time": "2023-08-16",
+      "bbox": [
+        113.925,
+        -1.525,
+        114.065,
+        -1.385
+      ],
+      "size": [
+        1000,
+        1000
+      ]
+    },
+    {
+      "id": "kapuas-2024",
+      "note": "Desa Palingkau Asri, Palingkau Jaya, Tajepan (Kapuas) — kondisi terkini",
+      "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+      "time": "2024-07-28",
+      "bbox": [
+        114.43,
+        -2.9,
+        114.61,
+        -2.72
+      ],
+      "size": [
+        1000,
+        1000
+      ]
+    }
+  ]
+}

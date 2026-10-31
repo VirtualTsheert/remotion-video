@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
-import { useCurrentFrame } from "remotion";
+import { Img, useCurrentFrame } from "remotion";
 import { geoGraticule, geoPath } from "d3-geo";
 import { useCamera } from "../camera/Camera2D";
 import { progress } from "../animation/motion";
 import { COLORS, EASE } from "../../theme/tokens";
 import { ASSETS } from "../../assets/registry";
 import { FONTS } from "../../theme/fonts";
-import { MAP_HEIGHT, MAP_WIDTH, geo, projection, useStaticJson, type LonLat, type Region } from "./geo";
+import { MAP_HEIGHT, MAP_WIDTH, geo, projection, useProjection, useStaticJson, type LonLat, type Region } from "./geo";
 
 const path = geoPath(projection);
 
@@ -63,9 +63,10 @@ export const GeoRoute: React.FC<{
 }> = ({ points, start, duration, color = COLORS.accent, width = 6, bend = 0.2, dashed = false }) => {
   const frame = useCurrentFrame();
   const cam = useCamera();
+  const project = useProjection();
   // Sampel kurva Bezier kuadrat untuk tiap segmen → polyline + panjang kumulatif.
   const { d, samples, lengths } = useMemo(() => {
-    const pts = points.map(geo);
+    const pts = points.map(project);
     const out: [number, number][] = [pts[0]];
     let dStr = `M${pts[0][0]},${pts[0][1]}`;
     for (let i = 1; i < pts.length; i++) {
@@ -87,7 +88,7 @@ export const GeoRoute: React.FC<{
       lens.push(lens[i - 1] + Math.hypot(out[i][0] - out[i - 1][0], out[i][1] - out[i - 1][1]));
     }
     return { d: dStr, samples: out, lengths: lens };
-  }, [points, bend]);
+  }, [points, bend, project]);
 
   const p = progress(frame, start, duration, EASE.inOut);
   if (frame < start) return null;
@@ -102,7 +103,7 @@ export const GeoRoute: React.FC<{
   ];
   const px = 1 / cam.zoom;
   return (
-    <svg width={MAP_WIDTH} height={MAP_HEIGHT} style={{ position: "absolute", left: 0, top: 0, overflow: "visible" }}>
+    <svg width={1} height={1} style={{ position: "absolute", left: 0, top: 0, overflow: "visible" }}>
       {/* Garis dasar putus-putus menunjukkan rute utuh secara samar */}
       <path d={d} fill="none" stroke={color} strokeOpacity={0.25} strokeWidth={width * 0.6 * px} strokeDasharray={dashed ? `${12 * px} ${10 * px}` : undefined} />
       <path
@@ -131,7 +132,7 @@ export const MapPin: React.FC<{
 }> = ({ at, start, color = COLORS.accent, label, side = "right" }) => {
   const frame = useCurrentFrame();
   const cam = useCamera();
-  const [x, y] = geo(at);
+  const [x, y] = useProjection()(at);
   const p = progress(frame, start, 12, EASE.cinematic);
   const pulse = ((frame - start) % 45) / 45;
   if (frame < start) return null;
@@ -167,16 +168,17 @@ export const MapPin: React.FC<{
 };
 
 // Label wilayah (laut, pulau) — huruf renggang, ukuran konstan di layar.
-export const MapLabel: React.FC<{ at: LonLat; text: string; start?: number; end?: number; size?: number }> = ({
+export const MapLabel: React.FC<{ at: LonLat; text: string; start?: number; end?: number; size?: number; color?: string }> = ({
   at,
   text,
   start = 0,
   end,
   size = 34,
+  color = COLORS.fog,
 }) => {
   const frame = useCurrentFrame();
   const cam = useCamera();
-  const [x, y] = geo(at);
+  const [x, y] = useProjection()(at);
   return (
     <div style={{ position: "absolute", left: x, top: y, width: 0, height: 0, scale: 1 / cam.zoom }}>
       <div
@@ -187,12 +189,32 @@ export const MapLabel: React.FC<{ at: LonLat; text: string; start?: number; end?
           fontFamily: FONTS.mono,
           fontSize: size,
           letterSpacing: size * 0.35,
-          color: COLORS.fog,
+          color,
+          textShadow: "0 2px 10px rgba(0,0,0,0.85)",
           opacity: progress(frame, start, 15) * (end === undefined ? 1 : 1 - progress(frame, end, 15)),
         }}
       >
         {text}
       </div>
     </div>
+  );
+};
+
+// Citra satelit (EPSG:4326) yang ditempatkan di dunia peta vektor sesuai bbox-nya,
+// sehingga kamera bisa terbang mulus dari peta ke citra. Distorsi Mercator vs
+// lat/lon diabaikan (kecil untuk wilayah dekat khatulistiwa).
+export const GeoImage: React.FC<{
+  src: string;
+  bbox: readonly [number, number, number, number];
+  opacity?: number;
+  style?: React.CSSProperties;
+}> = ({ src, bbox, opacity = 1, style }) => {
+  const [x0, y0] = geo([bbox[0], bbox[3]]);
+  const [x1, y1] = geo([bbox[2], bbox[1]]);
+  return (
+    <Img
+      src={src}
+      style={{ position: "absolute", left: x0, top: y0, width: x1 - x0, height: y1 - y0, opacity, ...style }}
+    />
   );
 };

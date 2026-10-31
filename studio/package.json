@@ -44,7 +44,8 @@
     "still": "remotion still",
     "qc": "node scripts/qc.mjs",
     "preview": "node scripts/preview-frames.mjs",
-    "plates": "node scripts/plates.mjs"
+    "plates": "node scripts/plates.mjs",
+    "imagery": "node scripts/fetch-imagery.mjs"
   },
   "allowScripts": {
     "esbuild": false

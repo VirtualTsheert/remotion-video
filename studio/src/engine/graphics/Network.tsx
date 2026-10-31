@@ -139,20 +139,23 @@ export const Network: React.FC<{ actors: Actor[]; links: Link[] }> = ({ actors, 
   );
 };
 
-// Angka yang berhitung naik, format Indonesia (titik ribuan).
+// Angka yang berhitung naik, format Indonesia (titik ribuan, koma desimal).
 export const Counter: React.FC<{
   from?: number;
   to: number;
   start: number;
   duration?: number;
+  prefix?: string;
   suffix?: string;
+  decimals?: number;
   style?: React.CSSProperties;
-}> = ({ from = 0, to, start, duration = 40, suffix = "", style }) => {
+}> = ({ from = 0, to, start, duration = 40, prefix = "", suffix = "", decimals = 0, style }) => {
   const frame = useCurrentFrame();
   const v = from + (to - from) * progress(frame, start, duration, EASE.inOut);
   return (
     <span style={{ fontVariantNumeric: "tabular-nums", ...style }}>
-      {Math.round(v).toLocaleString("id-ID")}
+      {prefix}
+      {v.toLocaleString("id-ID", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}
       {suffix}
     </span>
   );

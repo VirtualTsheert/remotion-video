@@ -1,0 +1,200 @@
+import { seconds } from "../../config/video";
+import type { Production } from "../../storyboard/types";
+import { Compare, Fire, Hook, Map1995, Title } from "./Act1";
+import { PeatSection } from "./PeatSection";
+import { Bpk, FieldVsClaim, Keppres, Launch2020, Revoked } from "./Documents";
+import { Merauke, SameLand, Sawit, Sources, TewaiBaru } from "./Act2";
+
+// Lahan yang Sama — naskah: research/food-estate/script.md, fakta: dossier.md.
+// Durasi mengikuti estimasi VO (±2,3 kata/dtk); sesuaikan setelah VO direkam.
+export const foodEstate: Production = {
+  id: "FoodEstate",
+  title: "Lahan yang Sama",
+  shots: [
+    {
+      id: "Hook",
+      purpose: "Memancing rasa ingin tahu: garis lurus raksasa di tengah hutan gambut.",
+      technique: "parallax-2.5d",
+      camera: "Tracking menyusuri kanal searah garis yang tergambar — mata mengikuti kanal.",
+      durationInFrames: seconds(8),
+      component: Hook,
+      voiceOver:
+        "Garis lurus ini adalah kanal sepanjang seratus delapan puluh tujuh kilometer. Ia digali menembus hutan gambut Kalimantan Tengah — demi sawah.",
+      sources: ["dossier 1.3", "dossier 3.1"],
+    },
+    {
+      id: "Title",
+      purpose: "Menyatakan tesis: negara kembali ke lahan yang sama.",
+      technique: "title",
+      camera: "Push-in sangat lambat pada citra yang digelapkan.",
+      durationInFrames: seconds(5),
+      component: Title,
+      transitionIn: { kind: "dip", durationInFrames: 16 },
+      voiceOver: "Dua puluh lima tahun kemudian, negara kembali ke lahan yang sama.",
+    },
+    {
+      id: "Map1995",
+      purpose: "Menempatkan cerita: di mana dan kapan proyek dimulai.",
+      technique: "motion-graphics",
+      camera: "Terbang dari Nusantara ke Kalimantan lalu masuk ke citra lahan (kondisi 1989).",
+      durationInFrames: seconds(10),
+      component: Map1995,
+      voiceOver:
+        "Tahun 1995, pemerintah meluncurkan Proyek Pengembangan Lahan Gambut di Kalimantan Tengah: sejuta hektare untuk tanaman pangan.",
+      sources: ["dossier 1.1"],
+      plate: true,
+    },
+    {
+      id: "Keppres",
+      purpose: "Menunjukkan dasar hukum dan skala proyek.",
+      technique: "object-animation",
+      camera: "Dokumen di meja, lalu turun ke data luas blok.",
+      durationInFrames: seconds(9),
+      component: Keppres,
+      transitionIn: { kind: "wipe", durationInFrames: 18 },
+      voiceOver:
+        "Dasarnya Keputusan Presiden Nomor 82 Tahun 1995. Kawasannya dibagi lima blok — hampir satu setengah juta hektare.",
+      sources: ["dossier 1.1", "dossier 1.2"],
+    },
+    {
+      id: "Compare",
+      purpose: "Bukti visual perubahan: hutan utuh → kanal.",
+      technique: "parallax-2.5d",
+      camera: "Diam saat wipe agar mata membandingkan, lalu mendekat ke kanal & grid.",
+      durationInFrames: seconds(11),
+      component: Compare,
+      transitionIn: { kind: "fade", durationInFrames: 15 },
+      voiceOver:
+        "Citra satelit merekam perubahannya. 1989: hutan rawa yang utuh. 1999: kanal-kanal lurus membelah gambut.",
+      sources: ["dossier 3.1", "dossier 3.2"],
+    },
+    {
+      id: "Peat",
+      purpose: "Menjelaskan mekanisme: kanal → gambut kering → mudah terbakar.",
+      technique: "motion-graphics",
+      camera: "Statis — perubahan ada pada diagram.",
+      durationInFrames: seconds(10),
+      component: PeatSection,
+      transitionIn: { kind: "push-in", durationInFrames: 18 },
+      voiceOver: "Gambut adalah tanah basah dari sisa tumbuhan. Saat airnya dikuras, ia mengering — dan mudah terbakar.",
+      sources: ["dossier 1.3", "dossier 1.4"],
+    },
+    {
+      id: "Fire",
+      purpose: "Akibat: kebakaran berulang dan biayanya.",
+      technique: "parallax-2.5d",
+      camera: "Push-in lambat dari asap regional ke kawasan eks-PLG.",
+      durationInFrames: seconds(12),
+      component: Fire,
+      transitionIn: { kind: "fade", durationInFrames: 15 },
+      voiceOver:
+        "Kawasan ini terbakar berulang kali: 1997, 2001, 2006, 2015, 2019. Kebakaran 2015 saja, menurut Bank Dunia, merugikan Indonesia enam belas koma satu miliar dolar.",
+      sources: ["dossier 1.5", "dossier 1.7", "dossier 3.4"],
+    },
+    {
+      id: "Revoked",
+      purpose: "Menutup babak pertama: proyek dihentikan.",
+      technique: "object-animation",
+      camera: "Kembali ke dokumen yang sama — kini distempel.",
+      durationInFrames: seconds(6),
+      component: Revoked,
+      transitionIn: { kind: "dip", durationInFrames: 16 },
+      voiceOver: "Proyek itu dihentikan. Tahun 1999, keputusannya dicabut.",
+      sources: ["dossier 1.6"],
+    },
+    {
+      id: "Launch2020",
+      purpose: "Babak kedua: program baru diumumkan, dengan kata-kata Presiden sendiri.",
+      technique: "object-animation",
+      camera: "Statis; kutipan diletakkan di depan penonton.",
+      durationInFrames: seconds(12),
+      component: Launch2020,
+      transitionIn: { kind: "dip", durationInFrames: 20 },
+      voiceOver:
+        "Oktober 2020. Presiden meninjau Pulang Pisau dan mengumumkan lumbung pangan baru: tiga puluh ribu hektare tahun itu, seratus enam puluh delapan ribu hektare ke depan.",
+      sources: ["dossier 2.1", "dossier 2.2"],
+    },
+    {
+      id: "SameLand",
+      purpose: "Inti tesis: lokasi baru berada di lahan lama.",
+      technique: "motion-graphics",
+      camera: "Dari tiga lokasi sekaligus, mendekat ke citra kawasan eks-PLG.",
+      durationInFrames: seconds(7),
+      component: SameLand,
+      transitionIn: { kind: "fade", durationInFrames: 15 },
+      voiceOver: "Lokasinya kembali berada di kawasan bekas proyek sejuta hektare.",
+      sources: ["dossier 2.3"],
+      plate: true,
+    },
+    {
+      id: "TewaiBaru",
+      purpose: "Bukti visual bukaan hutan untuk singkong.",
+      technique: "parallax-2.5d",
+      camera: "Push-in lambat di dalam penampil satelit menuju area bukaan.",
+      durationInFrames: seconds(13),
+      component: TewaiBaru,
+      transitionIn: { kind: "push-in", durationInFrames: 18 },
+      voiceOver:
+        "Di Gunung Mas, hutan di dekat Desa Tewai Baru dibuka untuk kebun singkong yang ditangani Kementerian Pertahanan. Pantau Gambut mencatat sekitar tujuh ratus hektare.",
+      sources: ["dossier 2.4", "dossier 2.5", "dossier 3.3"],
+    },
+    {
+      id: "FieldVsClaim",
+      purpose: "Dua versi: temuan lapangan dan klaim pemerintah, berdampingan.",
+      technique: "object-animation",
+      camera: "Dari kartu temuan turun ke kartu klaim.",
+      durationInFrames: seconds(12),
+      component: FieldVsClaim,
+      transitionIn: { kind: "wipe", durationInFrames: 18 },
+      voiceOver:
+        "Tim lapangan Pantau Gambut, Walhi, dan BBC menemukan singkong yang layu dan kerdil. Pemerintah kemudian menanam jagung, dan menyebutnya berhasil.",
+      sources: ["dossier 2.6", "dossier 2.7"],
+    },
+    {
+      id: "Bpk",
+      purpose: "Catatan resmi negara sendiri tentang masalah proyek.",
+      technique: "object-animation",
+      camera: "Push-in ke kalimat temuan audit.",
+      durationInFrames: seconds(9),
+      component: Bpk,
+      transitionIn: { kind: "slide", durationInFrames: 18 },
+      voiceOver:
+        "Badan Pemeriksa Keuangan mencatat masalah pada pengolahan lahan tiga puluh ribu hektare: lima belas koma dua miliar rupiah.",
+      sources: ["dossier 2.8"],
+    },
+    {
+      id: "Sawit",
+      purpose: "Kondisi terkini: sebagian lahan berganti fungsi atau terbengkalai.",
+      technique: "motion-graphics",
+      camera: "Drift lambat di atas citra 2024; data muncul di atasnya.",
+      durationInFrames: seconds(12),
+      component: Sawit,
+      transitionIn: { kind: "fade", durationInFrames: 15 },
+      voiceOver:
+        "Di Kapuas, Pantau Gambut menemukan sebagian lahan food estate kini menjadi kebun sawit. Dari delapan belas titik bukaan yang diperiksa, lima belas terbengkalai.",
+      sources: ["dossier 2.9"],
+    },
+    {
+      id: "Merauke",
+      purpose: "Relevansi hari ini: pola yang sama di tempat baru; pertanyaan penutup.",
+      technique: "motion-graphics",
+      camera: "Pull-out dari Kalimantan ke Nusantara — memperlihatkan skala dan jarak.",
+      durationInFrames: seconds(11),
+      component: Merauke,
+      transitionIn: { kind: "dip", durationInFrames: 16 },
+      voiceOver:
+        "Kini, lumbung pangan baru dibangun di Merauke, Papua — ratusan ribu hingga jutaan hektare. Lahannya berbeda. Pertanyaannya tetap sama.",
+      sources: ["dossier 2.10"],
+      plate: true,
+    },
+    {
+      id: "Sources",
+      purpose: "Akuntabilitas: sumber dan kredit citra.",
+      technique: "title",
+      camera: "Statis.",
+      durationInFrames: seconds(6),
+      component: Sources,
+      transitionIn: { kind: "fade", durationInFrames: 15 },
+    },
+  ],
+};

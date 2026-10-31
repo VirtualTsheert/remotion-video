@@ -52,7 +52,8 @@ Semua komponen dapat diuji satu per satu di produksi **Lab** (`src/lab/`).
 | Parallax 2.5D | `ParallaxScene` (lapisan, debu, kabut, perlakuan arsip, peringatan tepi) | `engine/parallax/` |
 | Objek | `Place` (mendarat di meja), `Paper`, `TypedDocument`, `PhotoPrint`, `Newspaper` | `engine/objects/` |
 | Penanda | `Highlight`, `Redact`, `CircleMark`, `Stamp`, `Typewriter` | `engine/objects/Marks.tsx` |
-| Peta | `GeoMap`, `GeoRoute`, `MapPin`, `MapLabel`, `geo([lon, lat])` | `engine/graphics/GeoMap.tsx` |
+| Peta | `GeoMap`, `GeoRoute`, `MapPin`, `MapLabel`, `GeoImage`, `geo([lon, lat])` | `engine/graphics/GeoMap.tsx` |
+| Citra satelit | `ImageWorld` (pin/rute dalam lon/lat di atas citra), `BeforeAfter`, `SatelliteViewer` | `engine/graphics/Satellite.tsx` |
 | Data | `Chronology` + `chronologyCamera()`, `Network` (terdokumentasi vs dugaan), `Counter` | `engine/graphics/` |
 | 3D | `Stage3D` (resolusi adaptif), `CityModel` (instanced, x-ray penghalang) | `engine/three/` |
 | Transisi | `cut`, `fade`, `wipe`, `slide`, `dip`, `light-leak`, `push-in` | `engine/transitions/` |
@@ -107,6 +108,23 @@ public/
   textures/ geo/ lab/      aset cache (ter-commit)
   plates/                  cache plate (tidak di-commit)
 ```
+
+### Alur riset → produksi (contoh: FoodEstate)
+
+```
+research/food-estate/
+  dossier.md      fakta + sumber + tingkat kepastian (setiap kalimat naskah merujuk ke sini)
+  script.md       naskah VO per shot dengan estimasi durasi
+  imagery.json    manifest citra satelit (lapisan GIBS, tanggal, bbox, ukuran)
+scripts/
+  fetch-imagery.mjs           npm run imagery -- research/food-estate/imagery.json
+  analysis/tewai_change.py    analisis perubahan citra (metode terdokumentasi di file)
+src/productions/food-estate/  shot + storyboard (VO & sumber per shot)
+```
+
+Citra satelit: NASA GIBS (Landsat WELD 1984–2000, HLS 2013–kini, MODIS 2000–kini) — tanpa
+batasan hak cipta. Untuk mencari tanggal bebas awan, ambil banyak tanggal kecil, ukur porsi
+piksel putih, pilih yang terendah (lihat dosir).
 
 ### Menambah produksi baru
 
