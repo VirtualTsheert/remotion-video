@@ -1,14 +1,20 @@
 import React from "react";
-import { AbsoluteFill, getRemotionEnvironment, useCurrentFrame } from "remotion";
-import { SAFE_AREA } from "../../config/video";
+import { AbsoluteFill, Img, staticFile, useCurrentFrame } from "remotion";
+import { SAFE_AREA, isDebug } from "../../config/video";
 
-// Lapisan akhir sinematik: grain film (seed berganti per frame, deterministik)
-// dan vignette. Dipasang di atas setiap shot agar seluruh video terasa satu "stok film".
+const GRAIN_TILES = 4;
+
+// Lapisan akhir sinematik: grain film dan vignette. Dipasang di atas setiap shot
+// agar seluruh video terasa satu "stok film".
+// Grain memakai gambar noise yang dibuat sekali (scripts/build-textures.sh), diganti
+// tiap 2 frame dengan offset deterministik — jauh lebih murah daripada noise SVG.
 export const Finish: React.FC<{ grain?: number; vignette?: number }> = ({
-  grain = 0.08,
+  grain = 0.12,
   vignette = 0.55,
 }) => {
   const frame = useCurrentFrame();
+  const step = Math.floor(frame / 2);
+  const tile = step % GRAIN_TILES;
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <AbsoluteFill
@@ -17,20 +23,26 @@ export const Finish: React.FC<{ grain?: number; vignette?: number }> = ({
         }}
       />
       {grain > 0 ? (
-        <svg width="100%" height="100%" style={{ position: "absolute", opacity: grain, mixBlendMode: "overlay" }}>
-          <filter id="grain">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={frame % 97} />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#grain)" />
-        </svg>
+        <Img
+          src={staticFile(`textures/grain-${tile}.jpg`)}
+          style={{
+            position: "absolute",
+            left: -((step * 37) % 120),
+            top: -((step * 53) % 120),
+            width: 1200,
+            height: 2040,
+            mixBlendMode: "overlay",
+            opacity: grain * 2.5,
+          }}
+        />
       ) : null}
     </AbsoluteFill>
   );
 };
 
-// Garis bantu area aman. Hanya tampil di Studio, tidak pernah ikut ter-render.
+// Garis bantu area aman. Hanya tampil dalam mode debug, tidak pernah di render final.
 export const SafeAreaGuide: React.FC = () => {
-  if (!getRemotionEnvironment().isStudio) return null;
+  if (!isDebug()) return null;
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <div

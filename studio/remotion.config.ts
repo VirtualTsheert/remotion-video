@@ -19,6 +19,8 @@ Config.setChromiumOpenGlRenderer("swangle");
 // Output untuk Instagram Reels: H.264, yuv420p, tanpa track audio.
 Config.setCodec("h264");
 Config.setPixelFormat("yuv420p");
+// Ruang warna ditandai eksplisit (lihat scripts/plates.mjs).
+Config.setColorSpace("bt709");
 Config.setCrf(18);
 Config.setMuted(true);
 

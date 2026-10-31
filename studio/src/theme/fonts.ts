@@ -1,9 +1,12 @@
 import { loadFont as loadSerif } from "@remotion/google-fonts/PlayfairDisplay";
 import { loadFont as loadSans } from "@remotion/google-fonts/Inter";
 import { loadFont as loadMono } from "@remotion/google-fonts/IBMPlexMono";
+import { loadFont as loadTypewriter } from "@remotion/google-fonts/SpecialElite";
+import { loadFont as loadHand } from "@remotion/google-fonts/Caveat";
 
 // Serif untuk judul (nuansa arsip/koran), sans untuk label & data,
-// mono untuk tanggal, kode dokumen, dan koordinat.
+// mono untuk tanggal, kode dokumen, dan koordinat, mesin tik untuk isi dokumen,
+// tulisan tangan untuk catatan penyelidik.
 export const FONTS = {
   serif: loadSerif("normal", { weights: ["700", "900"], subsets: ["latin"] })
     .fontFamily,
@@ -13,6 +16,9 @@ export const FONTS = {
   }).fontFamily,
   mono: loadMono("normal", { weights: ["400", "600"], subsets: ["latin"] })
     .fontFamily,
+  typewriter: loadTypewriter("normal", { weights: ["400"], subsets: ["latin"] })
+    .fontFamily,
+  hand: loadHand("normal", { weights: ["600"], subsets: ["latin"] }).fontFamily,
 } as const;
 
 export const TYPE = {

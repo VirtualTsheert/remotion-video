@@ -1,3 +1,5 @@
+import { getInputProps, getRemotionEnvironment } from "remotion";
+
 // Spesifikasi output tunggal untuk semua produksi: Instagram Reels 9:16, tanpa audio.
 export const VIDEO = {
   width: 1080,
@@ -15,3 +17,8 @@ export const SAFE_AREA = {
 } as const;
 
 export const seconds = (s: number) => Math.round(s * VIDEO.fps);
+
+// Mode debug: tampilkan pemandu (area aman, peringatan tepi) di Studio dan di
+// `npm run preview`, tetapi tidak pernah di render final.
+export const isDebug = () =>
+  getRemotionEnvironment().isStudio || getInputProps().debug === true;

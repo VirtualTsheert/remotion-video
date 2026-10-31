@@ -5,3 +5,9 @@ dist
 
 # Ignore the output video from Git but not videos you import into src/.
 out
+
+# Unduhan mentah (data peta, dll.)
+.cache
+
+# Cache plate hasil render (dibuat ulang dengan npm run plates)
+public/plates

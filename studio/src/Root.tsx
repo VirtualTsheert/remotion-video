@@ -28,7 +28,9 @@ export const RemotionRoot: React.FC = () => {
                 <Composition
                   key={shot.id}
                   id={`${production.id}-${shot.id}`}
-                  component={shot.component}
+                  // `plate` dibaca scripts/plates.mjs untuk memilih shot yang di-cache.
+                  component={shot.component as React.FC<{ plate?: boolean }>}
+                  defaultProps={{ plate: Boolean(shot.plate) }}
                   durationInFrames={shot.durationInFrames}
                   {...VIDEO}
                 />

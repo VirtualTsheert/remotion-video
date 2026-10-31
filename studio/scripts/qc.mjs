@@ -44,6 +44,9 @@ if (video) {
   check(video.r_frame_rate === EXPECT.fps, `Frame rate ${video.r_frame_rate}, seharusnya ${EXPECT.fps}`);
   check(video.codec_name === EXPECT.codec, `Codec ${video.codec_name}, seharusnya ${EXPECT.codec}`);
   check(video.pix_fmt === EXPECT.pixFmt, `Pixel format ${video.pix_fmt}, seharusnya ${EXPECT.pixFmt}`);
+  if (video.color_space !== "bt709") {
+    warnings.push(`Ruang warna "${video.color_space ?? "tidak ditandai"}", seharusnya bt709 (warna bisa bergeser di pemutar)`);
+  }
 }
 check(audio.length === 0, `Ada ${audio.length} stream audio, seharusnya tanpa audio`);
 if (duration < minDuration || duration > maxDuration) {

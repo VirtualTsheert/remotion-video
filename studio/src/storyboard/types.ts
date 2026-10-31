@@ -26,6 +26,9 @@ export type Shot = {
   voiceOver?: string;
   // Sumber fakta/aset yang dipakai shot ini.
   sources?: string[];
+  // Shot berat (3D) dirender sekali menjadi video "plate" (`npm run plates`)
+  // lalu dipakai ulang saat render final. Studio tetap memakai adegan hidup.
+  plate?: boolean;
 };
 
 export type Production = {
